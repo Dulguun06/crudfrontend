@@ -2,8 +2,7 @@ body {
   font-size: calc(10px + 2vmin);
   color: #202020;
   background-image: url(background.webp);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat:no-repeat;
   height: 100vh;
 }
 .App {
@@ -24,12 +23,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem !important;
 }
 .glass {
   color: #fefefe;
-  margin: 2rem;
-  padding: 3vh 10vh 5vh 10vh;
+  padding: 3vmin 10vmin 5vmin 10vmin;
   border-radius: 3.125rem;
   background: var(
     --glass,
@@ -43,8 +40,11 @@ body {
     -5px 5px 10px 1px rgba(147, 216, 254, 0.5) inset,
     5px -5px 10px 1px rgba(0, 0, 0, 0.25) inset;
   backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
 }
-
 input {
   border-radius: 100px !important;
   background: var(
@@ -56,27 +56,22 @@ input {
     )
   ) !important;
   height: 10vh;
-  margin-top: 5vh !important;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25) !important;
   color: #202020 !important;
-  font-size: 1.5rem !important;
-  padding-left: 1.5rem !important;
+  font-size: 3vmin !important;
+  padding-left: 3vmin !important;
 }
 .form-control::placeholder {
   color: rgba(254, 254, 254, 0.75) !important;
   font-family: Segoe UI;
-  font-size: 1.5rem;
+  font-size: 3vmin;
   font-weight: 400;
-  padding-left: 1rem;
-}
-.form-control::content {
-  font-size: 20vh !important;
 }
 h1 {
-  -webkit-text-stroke: 3px #101045 !important;
+  -webkit-text-stroke: 2px #101045 !important;
   color: #fefefe !important;
   font-family: "Montserrat-Black", Helvetica !important;
-  font-size: 12vh !important;
+  font-size: 12vmin !important;
   font-weight: 900 !important;
   text-shadow: 0px 10px 10px #00000080 !important;
   margin: 0 !important;
@@ -84,33 +79,43 @@ h1 {
 h2 {
   color: #fefefe !important;
   font-family: " Segoe UI", Helvetica !important;
-  font-size: 8vh !important;
+  font-size: 8vmin !important;
   font-weight: 700 !important;
 }
 button {
   border-radius: 100px !important;
   background: #fefefe;
   box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.25);
-  width: 12.5rem;
-  height: 8vh;
-  flex-shrink: 0;
+  height: 8vmin;
   font-weight: 400 !important;
-  font-size: 2rem !important;
+  font-size: 4vmin !important;
   width: 100%;
-  margin-top: 2rem !important;
   justify-content: center;
   align-items: center;
   display: flex;
+  padding: 0 !important;
 }
 #sign_up {
   background-color: rgba(0, 0, 0, 0) !important;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
   color: #202020;
-  text-decoration: none;
-  height: 100%;
+  text-decoration: underline;
   font-weight: 400;
-  font-size: 1.5rem !important;
+  font-size: 3vmin !important;
 }
 ul{
  background-color: #fefefe;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#sd{
+  font-size: 7vmin !important;
+}
+#logOut{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

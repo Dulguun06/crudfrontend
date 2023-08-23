@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Modal } from "react-bootstrap";
-import StudentList from "./list";
+import axios from "axios";
 
 const SignUp = ({ onSubmit }) => {
   const [email, setEmail] = useState("");
@@ -46,9 +46,12 @@ export default function Login() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleClick = () =>{
-    <StudentList/>
-  }
+  const handleClick = () => {
+    axios.post(`/index/login`).then((res) => {
+      const sysUser = res.data;
+      this.setState({ sysUser });
+    });
+  };
 
   const [show, setShow] = useState(false);
 
@@ -64,12 +67,12 @@ export default function Login() {
     <Container>
       <Row>
         <Col mx={6} className="welcome">
-          <h1>Welcome page 🌍 </h1>
+          <h1>Student Dashboard 🌍 </h1>
         </Col>
 
         <Col mx={6}>
           <div className="glass">
-            <h2>Login</h2>
+            <h2>Welcome 🤗</h2>
 
             <Form>
               <Form.Group
@@ -119,7 +122,9 @@ export default function Login() {
                   <SignUp onSubmit={onSignUpFormSubmit} />
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="light" onClick={handleClose}>Cancel</Button>
+                  <Button variant="light" onClick={handleClose}>
+                    Cancel
+                  </Button>
                 </Modal.Footer>
               </Modal>
             </Form>
