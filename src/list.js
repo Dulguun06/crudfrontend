@@ -8,6 +8,7 @@ import {
   Table,
   Form,
   Modal,
+  FormCheck,
 } from "react-bootstrap";
 class StudentList extends React.Component {
   constructor(props) {
@@ -15,9 +16,12 @@ class StudentList extends React.Component {
     this.state = {
       students: [],
       show: false,
+      showDel: false,
+      showUpdate: false,
       firstName: "",
       lastName: "",
       grade: "",
+      id: null,
     };
   }
 
@@ -45,17 +49,51 @@ class StudentList extends React.Component {
         }
       });
   };
-  add = () => {
-    console.log("CLICKED ADD");
-    this.setState({ show: true });
-    // setInterval(console.log("state", this.state),5000)
+  deleteStudent = (id, e) => {
+    axios.delete("api/service/deleteStudentById/" + id).then((data) => {
+      if (data != null) {
+        this.getData();
+        this.close();
+      }
+    });
   };
+  updateStudent = (id, e) => {
+    axios
+      .put("api/service/updateStudentById/" + id, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        grade: this.state.grade,
+      })
+      .then((data) => {
+        if (data != null) {
+          this.getData();
+          this.close();
+        }
+      });
+  };
+  add = () => {
+    this.setState({ show: true });
+  };
+  delete = () => {
+    this.setState({ showDel: true });
+  };
+  update = () => {
+    this.setState({ showUpdate: true });
+  };
+  get update() {
+    return this._update;
+  }
+  set update(value) {
+    this._update = value;
+  }
   handleChange = (event) => {
     let name = event.target.name;
     this.setState({ [name]: event.target.value });
   };
   close = () => {
     this.setState({ show: false });
+    this.setState({ showDel: false });
+    this.setState({showUpdate: false})
   };
 
   render() {
@@ -73,12 +111,15 @@ class StudentList extends React.Component {
         </Row>
         <br />
         <Row>
-          <Col md="6"></Col>
+          <Col md="4"></Col>
           <Col>
-            <Button onClick={this.add}>Add</Button>
+            <Button onClick={this.add} variant="success">Add</Button>
           </Col>
           <Col>
-            <Button type="submit" variant="danger">
+            <Button onClick={this.update} variant="primary">Update</Button>
+          </Col>
+          <Col>
+            <Button onClick={this.delete} variant="danger">
               Delete
             </Button>
           </Col>
@@ -148,10 +189,110 @@ class StudentList extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="success" type="submit" onClick={this.save}>
+            <Button variant="light" type="submit" onClick={this.save}>
               Submit
             </Button>
-            <Button variant="danger" onClick={this.close}>
+            <Button variant="light" onClick={this.close}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.showDel}
+          onHide={this.close}
+          className="glass-modal"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Student</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group mb="3">
+                <Form.Control
+                  type="text"
+                  name="id"
+                  placeholder="Student id"
+                  value={this.state.id}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="light"
+              type="submit"
+              onClick={(e) => this.deleteStudent(this.state.id, e)}
+            >
+              Delete
+            </Button>
+            <Button variant="light" onClick={this.close}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.showUpdate}
+          onHide={this.close}
+          className="glass-modal"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Update Student</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+            <Form.Group mb="3">
+                <Form.Control
+                  type="text"
+                  name="id"
+                  placeholder="Student id"
+                  value={this.state.id}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <br />
+              <Form.Group mb="3">
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={this.state.firstName}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <br />
+              <Form.Group mb="3">
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={this.state.lastName}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <br />
+              <Form.Group className="mb-3">
+                <Form.Control
+                  type="text"
+                  name="grade"
+                  placeholder="Grade"
+                  value={this.state.grade}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="light"
+              type="submit"
+              onClick={(e) => this.updateStudent(this.state.id, e)}
+            >
+              Submit
+            </Button>
+            <Button variant="light" onClick={this.close}>
               Cancel
             </Button>
           </Modal.Footer>
