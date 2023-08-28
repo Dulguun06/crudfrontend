@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
+import { redirect } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,8 +10,18 @@ export default function Login() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("Handle clicked");
-    window.location.href = "/dashboard";
+    axios
+      .post("index/login", {
+        userMail: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res == 200 || res == "OK") {
+          window.location.href = "/dashboard";
+        }
+        else return redirect("/login");
+      });
+    
   };
   const [show, setShow] = useState(false);
 
