@@ -5,7 +5,7 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
 }
-.container{
+.container {
   min-width: 90vw;
 }
 .App {
@@ -122,7 +122,7 @@ form {
   align-items: center;
   justify-content: center;
 }
-.modal-content{
+.modal-content {
   background: var(
     --glass,
     linear-gradient(
@@ -138,18 +138,18 @@ form {
   padding: 3vmin;
   color: #fefefe !important;
 }
-h4{
+h4 {
   font-size: 4vmin !important;
   font-weight: 400 !important;
 }
-.btn-close{
-border-radius: 0 !important;
-height: 3vmin !important;
-width:  3vmin !important;
-box-shadow: none !important;
-margin-right: 1vmin !important;
+.btn-close {
+  border-radius: 0 !important;
+  height: 3vmin !important;
+  width: 3vmin !important;
+  box-shadow: none !important;
+  margin-right: 1vmin !important;
 }
-th > button{
+th > button {
   height: 3.5vmin !important;
   width: auto + 0.5vmin !important;
   font-size: 2.2vmin !important;

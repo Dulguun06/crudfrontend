@@ -8,8 +8,8 @@ import {
   Table,
   Form,
   Modal,
-  FormCheck,
 } from "react-bootstrap";
+
 class StudentList extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ class StudentList extends React.Component {
       showUpdate: false,
       firstName: "",
       lastName: "",
-      grade: "",
+      grade: null,
       id: null,
     };
   }
@@ -49,7 +49,7 @@ class StudentList extends React.Component {
         }
       });
   };
-  deleteStudent = (id, e) => {
+  deleteStudent = (id) => {
     axios.delete("api/service/deleteStudentById/" + id).then((data) => {
       if (data != null) {
         this.getData();
@@ -57,7 +57,7 @@ class StudentList extends React.Component {
       }
     });
   };
-  updateStudent = (id, e) => {
+  updateStudent = (id) => {
     axios
       .put("api/service/updateStudentById/" + id, {
         firstName: this.state.firstName,
@@ -80,12 +80,6 @@ class StudentList extends React.Component {
   update = () => {
     this.setState({ showUpdate: true });
   };
-  get update() {
-    return this._update;
-  }
-  set update(value) {
-    this._update = value;
-  }
   handleChange = (event) => {
     let name = event.target.name;
     this.setState({ [name]: event.target.value });
@@ -93,7 +87,10 @@ class StudentList extends React.Component {
   close = () => {
     this.setState({ show: false });
     this.setState({ showDel: false });
-    this.setState({showUpdate: false})
+    this.setState({ showUpdate: false });
+  };
+  logOut = () => {
+    window.location.href = "/login";
   };
 
   render() {
@@ -104,7 +101,7 @@ class StudentList extends React.Component {
             <h1 id="sd">Student Dashboard</h1>
           </Col>
           <Col id="logOut">
-            <Button type="submit" variant="dark">
+            <Button type="submit" variant="dark" onClick={this.logOut}>
               Log Out
             </Button>
           </Col>
@@ -113,10 +110,14 @@ class StudentList extends React.Component {
         <Row>
           <Col md="4"></Col>
           <Col>
-            <Button onClick={this.add} variant="success">Add</Button>
+            <Button onClick={this.add} variant="success">
+              Add
+            </Button>
           </Col>
           <Col>
-            <Button onClick={this.update} variant="primary">Update</Button>
+            <Button onClick={this.update} variant="primary">
+              Update
+            </Button>
           </Col>
           <Col>
             <Button onClick={this.delete} variant="danger">
@@ -223,7 +224,7 @@ class StudentList extends React.Component {
             <Button
               variant="light"
               type="submit"
-              onClick={(e) => this.deleteStudent(this.state.id, e)}
+              onClick={(e) => this.deleteStudent(this.state.id)}
             >
               Delete
             </Button>
@@ -243,7 +244,7 @@ class StudentList extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <Form>
-            <Form.Group mb="3">
+              <Form.Group mb="3">
                 <Form.Control
                   type="text"
                   name="id"
@@ -288,7 +289,7 @@ class StudentList extends React.Component {
             <Button
               variant="light"
               type="submit"
-              onClick={(e) => this.updateStudent(this.state.id, e)}
+              onClick={(e) => this.updateStudent(this.state.id)}
             >
               Submit
             </Button>
@@ -301,4 +302,5 @@ class StudentList extends React.Component {
     );
   }
 }
+
 export default StudentList;
